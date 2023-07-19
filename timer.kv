@@ -1,0 +1,54 @@
+#:kivy 1.0.9
+
+<TimerCircle>:
+    size: self.parent.circle_size - 20, self.parent.circle_size - 20
+    canvas:
+        Color:
+            rgba: 0, 0, 0, 1
+        Ellipse:
+            pos: self.center_x - self.size[0] / 2, self.center_y - self.size[1] / 2
+            size: self.size
+            angle_start: 0
+            angle_end: self.percentage * 360
+
+<TimerBG>:
+    size: self.parent.circle_size, self.parent.circle_size
+    canvas:
+        Color:
+            rgba: 1, 1, 1, 1
+        Ellipse:
+            pos: self.center_x - self.size[0] / 2, self.center_y - self.size[1] / 2
+            size: self.size
+            angle_start: 0
+            angle_end: self.switch_angle
+        Color:
+            rgba: 1, .5, 1, 1
+        Ellipse:
+            pos: self.center_x - self.size[0] / 2, self.center_y - self.size[1] / 2
+            size: self.size
+            angle_start: self.switch_angle
+            angle_end: 360
+
+<TimerCanvas>:
+    circle_fg: timer_circle
+    circle_size: 200
+
+    TimerBG:
+        id: timer_bg
+        center: self.parent.center
+
+    TimerCircle:
+        id: timer_circle
+        center: self.parent.center
+
+    Label:
+        font_size: 70
+        center_x: root.width / 2
+        top: root.top - 50
+        text: f"{root.seconds // 60:.0f}:{root.seconds % 60:02.0f}"
+
+    Label:
+        font_size: 70
+        center_x: root.width / 2
+        top: root.top - root.height + self.height + 50
+        text: f"-{root.remaining_seconds_in_stage // 60:.0f}:{root.remaining_seconds_in_stage % 60:02.0f}"
