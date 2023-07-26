@@ -7,6 +7,7 @@ from kivy.uix.widget import Widget
 
 
 DEBUG_SPEED = 1
+DEBUG_START_SECONDS = None
 
 RESET_SECONDS = 1
 WORK_MINUTES = 25
@@ -33,9 +34,12 @@ class TimerCanvas(Widget):
     remaining_seconds_in_stage = NumericProperty(0)
     circle_fg = ObjectProperty(None)
     circle_size = NumericProperty(0)
+    debug_interval = NumericProperty(
+        time.time() - DEBUG_START_SECONDS if DEBUG_START_SECONDS is not None else 0
+    )
 
     def update(self, dt):
-        self.seconds = time.time() % TOTAL_CYCLE_SECONDS
+        self.seconds = (time.time() - self.debug_interval) % TOTAL_CYCLE_SECONDS
         self.remaining_seconds = TOTAL_CYCLE_SECONDS - self.seconds
         self.remaining_seconds_in_stage = (
             WORK_SECONDS - self.seconds
