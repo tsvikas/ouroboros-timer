@@ -35,11 +35,11 @@ class TimerCanvas(Widget):
     circle_fg = ObjectProperty(None)
     circle_size = NumericProperty(0)
     debug_interval = NumericProperty(
-        time.time() - DEBUG_START_SECONDS if DEBUG_START_SECONDS is not None else 0
+         0 if DEBUG_START_SECONDS is None else (DEBUG_START_SECONDS - time.time())
     )
 
     def update(self, dt):
-        self.seconds = (time.time() - self.debug_interval) % TOTAL_CYCLE_SECONDS
+        self.seconds = (time.time() + self.debug_interval) % TOTAL_CYCLE_SECONDS
         self.remaining_seconds = TOTAL_CYCLE_SECONDS - self.seconds
         self.remaining_seconds_in_stage = (
             WORK_SECONDS - self.seconds
