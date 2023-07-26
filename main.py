@@ -2,9 +2,9 @@ import time
 
 from kivy.app import App
 from kivy.clock import Clock
+from kivy.core.window import Window
 from kivy.properties import NumericProperty, ObjectProperty
 from kivy.uix.widget import Widget
-
 
 DEBUG_SPEED = None
 DEBUG_START_SECONDS = None
@@ -57,6 +57,7 @@ class TimerApp(App):
         app = TimerCanvas()
         self.title = "Ouroboros Timer"
         Clock.schedule_interval(app.update, 1 / 60)
+        Window.size = (300, 450)
         return app
 
 
