@@ -31,7 +31,7 @@
 
 <TimerCanvas>:
     circle_fg: timer_circle
-    circle_size: min(self.height - 100, self.width) * .8
+    circle_size: self.width * .8
 
     TimerBG:
         id: timer_bg
@@ -42,13 +42,13 @@
         center: self.parent.center
 
     Label:
-        font_size: 70
+        font_size: min(70, root.width / 3)
         center_x: root.width / 2
-        top: root.height / 2 + root.circle_size / 2 + self.height
+        top: self.height + root.height / 2 + root.circle_size / 2 + self.font_size / 2 - 35
         text: f"{root.seconds // 60:.0f}:{root.seconds % 60:02.0f}"
 
     Label:
-        font_size: 70
+        font_size: min(70, root.width / 3)
         center_x: root.width / 2
-        top: root.top - root.height / 2 - root.circle_size / 2
+        top: root.height / 2 - (root.circle_size / 2 + self.font_size / 2 - 35)
         text: f"-{root.remaining_seconds_in_stage // 60:.0f}:{root.remaining_seconds_in_stage % 60:02.0f}"
