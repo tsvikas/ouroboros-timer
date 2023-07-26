@@ -6,6 +6,7 @@ from kivy.properties import NumericProperty, ObjectProperty
 from kivy.uix.widget import Widget
 
 
+RESET_SECONDS = 1
 WORK_MINUTES = 25 / 10
 BREAK_MINUTES = 5 / 10
 TOTAL_CYCLE_MINUTES = WORK_MINUTES + BREAK_MINUTES
@@ -20,7 +21,8 @@ class TimerBG(Widget):
 
 
 class TimerCircle(Widget):
-    percentage = NumericProperty(0)
+    start_percentage = NumericProperty(0)
+    end_percentage = NumericProperty(0)
 
 
 class TimerCanvas(Widget):
@@ -38,7 +40,10 @@ class TimerCanvas(Widget):
             if self.seconds < WORK_SECONDS
             else BREAK_SECONDS - (self.seconds - WORK_SECONDS)
         )
-        self.circle_fg.percentage = self.seconds / TOTAL_CYCLE_SECONDS
+        self.circle_fg.end_percentage = self.seconds / TOTAL_CYCLE_SECONDS
+        self.circle_fg.start_percentage = max(
+            0, 1 - (TOTAL_CYCLE_SECONDS - self.seconds) / RESET_SECONDS
+        )
 
 
 class TimerApp(App):

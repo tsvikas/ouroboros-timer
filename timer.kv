@@ -8,8 +8,8 @@
         Ellipse:
             pos: self.center_x - self.size[0] / 2, self.center_y - self.size[1] / 2
             size: self.size
-            angle_start: 0
-            angle_end: self.percentage * 360
+            angle_start: self.start_percentage * 360
+            angle_end: self.end_percentage * 360
 
 <TimerBG>:
     size: self.parent.circle_size, self.parent.circle_size
